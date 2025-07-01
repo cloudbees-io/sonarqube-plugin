@@ -1,0 +1,74 @@
+= CloudBees action: Scan with sonarqube
+
+Use this action to perform static application security testing (SAST) on mutiple codebase with sonarqube, a SAST scanner.
+
+== Inputs
+
+[cols="2a,1a,1a,3a",options="header"]
+.Input details
+|===
+
+| Input name
+| Data type
+| Required?
+| Description
+
+| `url`
+| String
+| Yes
+| The Sonarqube server URL which gets the findings.
+
+| `username`
+| String
+| No
+| The username field set for the scanner.
+
+| `password`
+| String
+| No
+| The password field set for the scanner.
+
+| `token`
+| String
+| No
+| The token for the scanner.
+
+| `ref`
+| String
+| No
+| The branch name to be scanned.
+
+| `workspace-dir`
+| String
+| No
+| The path of the code to be scanned.
+
+| `cmakeList-path`
+| String
+| No
+| The path of the CMakeFileList.txt for scanning Cfamily languages.
+
+|===
+
+== Usage example
+
+In your YAML file, add:
+
+[source,yaml]
+----
+      - name: Scan with Sonarqube explicit scanner
+        uses: cloudbees-io/sonarqube-plugin@v1
+        with:
+          url: https://your-sonarqube-server-url
+
+----
+
+== License
+
+This code is made available under the 
+link:https://opensource.org/license/mit/[MIT license].
+
+== References
+
+* Learn more about link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/actions[using actions in CloudBees workflows].
+* Learn about link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/[the CloudBees platform].

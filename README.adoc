@@ -63,6 +63,19 @@ In your YAML file, add:
 
 ----
 
+For CFamily scans 
+
+[source,yaml]
+----
+      - name: Scan with Sonarqube explicit scanner
+        uses: cloudbees-io/sonarqube-plugin@v1
+        with:
+          url: https://your-sonarqube-server-url
+          token: your-login-token
+          cmakeList-path: Directory path where the CmakeLists.txt file resides
+
+----
+
 == License
 
 This code is made available under the 

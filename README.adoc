@@ -1,10 +1,13 @@
-= CloudBees action: Scan with sonarqube
+= CloudBees action: Scan with SonarQube
 
-Use this action to perform static application security testing (SAST) on mutiple codebase with sonarqube, a SAST scanner.
+If you already are running a centralized SonarQube instance, use this action to scan a Git repository with the SonarQube static analysis scanner. 
+The data collected from the scans is available in your SonarQube reports, and the results are also displayed in the CloudBees platform analytics dashboards.
+
+NOTE: If you do not have SonarQube already installed, use the https://github.com/cloudbees-io/sonarqube-bundled-sast-scan-code[Scan with SonarQube bundled action] instead.
 
 == Inputs
 
-[cols="2a,1a,1a,3a",options="header"]
+[cols="2a,1a,4a,3a",options="header"]
 .Input details
 |===
 
@@ -16,64 +19,65 @@ Use this action to perform static application security testing (SAST) on mutiple
 | `url`
 | String
 | Yes
-| The Sonarqube server URL which gets the findings.
+| The SonarQube server URL.
 
-| `username`
+| `cmakeList-path`
 | String
 | No
-| The username field set for the scanner.
+| The `CMakeFileList.txt` file path for scanning C-family code languages.
+For more information, refer to the link:https://cmake.org/cmake/help/book/mastering-cmake/chapter/Getting%20Started.html[CMake documentation].
 
 | `password`
 | String
 | No
-| The password field set for the scanner.
-
-| `token`
-| String
-| No
-| The token for the scanner.
+| The SonarQube password.
 
 | `ref`
 | String
 | No
 | The branch name to be scanned.
 
+| `token`
+| String
+| No
+| The SonarQube access token.
+
+| `username`
+| String
+| No
+| The SonarQube username.
+
 | `workspace-dir`
 | String
 | No
-| The path of the code to be scanned.
-
-| `cmakeList-path`
-| String
-| No
-| The path of the CMakeFileList.txt for scanning Cfamily languages.
+| The file path of the code to be scanned.
 
 |===
 
-== Usage example
+== Usage examples
 
-In your YAML file, add:
-
-[source,yaml]
-----
-      - name: Scan with Sonarqube explicit scanner
-        uses: cloudbees-io/sonarqube-plugin@v1
-        with:
-          url: https://your-sonarqube-server-url
-
-----
-
-For CFamily scans 
+The following is a basic example for using the action:
 
 [source,yaml]
 ----
-      - name: Scan with Sonarqube explicit scanner
+
+      - name: Scan with SonarQube
         uses: cloudbees-io/sonarqube-plugin@v1
         with:
-          url: https://your-sonarqube-server-url
-          token: your-sonarqube-server-token
-          cmakeList-path: Directory path where the CmakeLists.txt file resides
+          server-url: https://my-sonarqube-server-url
 
+----
+
+In the following example, the `cmakeList-path` input is specified for a C-family code language scan:
+
+[source,yaml]
+----
+
+      - name: Scan C-family code with SonarQube
+        uses: cloudbees-io/sonarqube-plugin@v1
+        with:
+          server-url: ${{ vars.SONARQUBE_SERVER_URL }}
+          cmakeList-path: https://path/to/my/CMakeFileList.txt
 ----
 
 == License

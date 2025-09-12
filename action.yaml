@@ -26,6 +26,14 @@ inputs:
     description: 'CMakeLists.txt file path needed for running make command for CFamily scans'
     required: false
     default: ''
+  scan-file-inclusions:
+    description: 'File patterns to include in the scan'
+    required: false
+    default: ''
+  scan-file-exclusions:
+    description: 'File patterns to exclude from the scan'
+    required: false
+    default: ''
 outputs:
   critical-count:
     description: A string containing the number of Critical security findings discovered during the scan.
@@ -80,13 +88,15 @@ runs:
 
    
     - name: Run sonarqube compliance plugin
-      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-sonarqube-scanner:f086c531dce39825964ef24109d98bc97eb34887
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-sonarqube-scanner:aa8424264fa8c9cccd4703799ed0446658018e33
       env:
           SONARQUBE_PROPS: '{"url": "${{ inputs.url }}" , "username": "${{ inputs.username }}", "password": "${{ inputs.password }}", "token": "${{ inputs.token }}"}'
           RUN_ID: ${{ cloudbees.run_id }}
           JOB_ID: ${{ job.id }}
           STEP_ID: ${{ step.internal.id }}
           CMAKELIST_LOCATION: ${{ inputs.cmakeList-path }}
+          SONARQUBE_SCAN_FILE_INCLUSIONS: ${{ inputs.scan-file-inclusions }}
+          SONARQUBE_SCAN_FILE_EXCLUSIONS: ${{ inputs.scan-file-exclusions }}
           
       run: /app/plugin-sonarqube-scanner -mode single
 

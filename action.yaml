@@ -26,14 +26,18 @@ inputs:
     description: 'CMakeLists.txt file path needed for running make command for CFamily scans'
     required: false
     default: ''
-  scan-file-inclusions:
+  sonar-inclusion:
     description: 'File patterns to include in the scan'
     required: false
     default: ''
-  scan-file-exclusions:
+  sonar-exclusion:
     description: 'File patterns to exclude from the scan'
     required: false
     default: ''
+  cover-file-name:
+    description: 'Coverage report file name'
+    required: false
+    default: 'coverage.out'
 outputs:
   critical-count:
     description: A string containing the number of Critical security findings discovered during the scan.
@@ -95,8 +99,9 @@ runs:
           JOB_ID: ${{ job.id }}
           STEP_ID: ${{ step.internal.id }}
           CMAKELIST_LOCATION: ${{ inputs.cmakeList-path }}
-          SONARQUBE_SCAN_FILE_INCLUSIONS: ${{ inputs.scan-file-inclusions }}
-          SONARQUBE_SCAN_FILE_EXCLUSIONS: ${{ inputs.scan-file-exclusions }}
+          SONARQUBE_SCAN_FILE_INCLUSIONS: ${{ inputs.sonar-inclusion }}
+          SONARQUBE_SCAN_FILE_EXCLUSIONS: ${{ inputs.sonar-exclusion }}
+          SONARQUBE_TEST_COVERAGE_FILE: ${{ inputs.cover-file-name }}
           
       run: /app/plugin-sonarqube-scanner -mode single
 

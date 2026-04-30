@@ -92,7 +92,7 @@ runs:
 
    
     - name: Run sonarqube compliance plugin
-      uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/actions/assets-sonarqube-scanner:02561701b23046536914f1cf79ddcc0939eec52b
+      uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/actions/assets-sonarqube-scanner:b9522f688cb56161265210dbb7c4c839de446d6c
       env:
           SONARQUBE_PROPS: '{"url": "${{ inputs.url }}" , "username": "${{ inputs.username }}", "password": "${{ inputs.password }}", "token": "${{ inputs.token }}"}'
           RUN_ID: ${{ cloudbees.run_id }}

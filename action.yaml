@@ -54,12 +54,15 @@ outputs:
   low-count:
     description: A string containing the number of Low security findings discovered during the scan.
     value: ${{steps.process-outputs.outputs.low-count}}
+  policy-subject:
+    description: A json value containing the details about the vulnerability scan summary & details.
+    value: ${{steps.process-outputs.outputs.policy-subject}}
 
 runs:
   using: composite
   steps:
     - name: Generate sha and ref 
-      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-plugin-chain-utils:ee88c66b03775d32cb0b69417e1a75ea68cb58ca
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-plugin-chain-utils:eda1f86aa17218e8779fae9ff1ac9161b708d07e
       with:
         entrypoint: assets-plugin-chain-utils
         args: get-commit-info
@@ -72,7 +75,7 @@ runs:
         INPUT_WORKSPACE_DIR: ${{ inputs.workspace-dir }}
 
     - name: Generate reference files 
-      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-plugin-chain-utils:ee88c66b03775d32cb0b69417e1a75ea68cb58ca
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-plugin-chain-utils:eda1f86aa17218e8779fae9ff1ac9161b708d07e
       with:
           entrypoint: assets-plugin-chain-utils
           args: generate-references --asset-type "CODE"
@@ -92,7 +95,7 @@ runs:
 
    
     - name: Run sonarqube compliance plugin
-      uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/actions/assets-sonarqube-scanner:b9522f688cb56161265210dbb7c4c839de446d6c
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-sonarqube-scanner:315cc67ba551149baae34ccc6951cc5173f7a3c1
       env:
           SONARQUBE_PROPS: '{"url": "${{ inputs.url }}" , "username": "${{ inputs.username }}", "password": "${{ inputs.password }}", "token": "${{ inputs.token }}"}'
           RUN_ID: ${{ cloudbees.run_id }}
@@ -106,7 +109,7 @@ runs:
       run: /app/plugin-sonarqube-scanner -mode single
 
     - name: Complete execution plan
-      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-plugin-chain-utils:ee88c66b03775d32cb0b69417e1a75ea68cb58ca
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-plugin-chain-utils:eda1f86aa17218e8779fae9ff1ac9161b708d07e
       id: process-outputs
       with:
           entrypoint: assets-plugin-chain-utils
@@ -115,3 +118,5 @@ runs:
           INPUT_CLOUDBEES_API_TOKEN: ${{ cloudbees.api.token }} 
           INPUT_CLOUDBEES_API_URL: ${{ cloudbees.api.url }}
           INPUT_RUN_ID: ${{ cloudbees.run_id }}
+          INPUT_WORKSPACE_DIR: ${{ inputs.workspace-dir }}
+          

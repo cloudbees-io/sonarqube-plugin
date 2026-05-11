@@ -86,6 +86,10 @@ For more information, refer to the link:https://cmake.org/cmake/help/book/master
 | String
 | The number of *Low* security findings discovered during the scan.
 
+| `policy-subject`
+| String
+| A JSON value containing the details about the vulnerability scan summary and details.
+
 |===
 
 == Usage examples
@@ -177,6 +181,7 @@ jobs:
             echo "High count: ${{steps.sonarqube-step.outputs.high-count}}"
             echo "Medium count: ${{steps.sonarqube-step.outputs.medium-count}}"
             echo "Low count: ${{steps.sonarqube-step.outputs.low-count}}"
+            echo "Policy subject: ${{steps.sonarqube-step.outputs.policy-subject}}"
 
 ----
 
@@ -207,6 +212,7 @@ jobs:
       sonarqube-job-output-high: ${{ steps.sonarqube-step.outputs.high-count }}
       sonarqube-job-output-medium: ${{ steps.sonarqube-step.outputs.medium-count }}
       sonarqube-job-output-low: ${{ steps.sonarqube-step.outputs.low-count }}
+      sonarqube-job-output-policy-subject: ${{ steps.sonarqube-step.outputs.policy-subject }}
     steps:
       - name: check out source code
         uses: cloudbees-io/checkout@v1
@@ -235,6 +241,7 @@ jobs:
           echo "High count: ${{ needs.job1.outputs.sonarqube-job-output-high }}"
           echo "Medium count: ${{ needs.job1.outputs.sonarqube-job-output-medium }}"
           echo "Low count: ${{ needs.job1.outputs.sonarqube-job-output-low }}"
+          echo "Policy subject: ${{ needs.job1.outputs.sonarqube-job-output-policy-subject }}"
 
 ----
 

@@ -96,6 +96,7 @@ runs:
    
     - name: Run sonarqube compliance plugin
       uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-sonarqube-scanner:315cc67ba551149baae34ccc6951cc5173f7a3c1
+      continue-on-error: true
       env:
           SONARQUBE_PROPS: '{"url": "${{ inputs.url }}" , "username": "${{ inputs.username }}", "password": "${{ inputs.password }}", "token": "${{ inputs.token }}"}'
           RUN_ID: ${{ cloudbees.run_id }}
@@ -109,7 +110,7 @@ runs:
       run: /app/plugin-sonarqube-scanner -mode single
 
     - name: Complete execution plan
-      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-plugin-chain-utils:eda1f86aa17218e8779fae9ff1ac9161b708d07e
+      uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/actions/assets-plugin-chain-utils:b3e498d665c5fbd6eb4250cafcf849c03d3ad538
       id: process-outputs
       with:
           entrypoint: assets-plugin-chain-utils

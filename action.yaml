@@ -110,7 +110,7 @@ runs:
       run: /app/plugin-sonarqube-scanner -mode single
 
     - name: Complete execution plan
-      uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/actions/assets-plugin-chain-utils:b3e498d665c5fbd6eb4250cafcf849c03d3ad538
+      uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/actions/assets-plugin-chain-utils:ff4d75579893f27f866232d22ed75aa699c0a7aa
       id: process-outputs
       with:
           entrypoint: assets-plugin-chain-utils

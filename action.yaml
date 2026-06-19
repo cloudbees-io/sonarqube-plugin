@@ -111,6 +111,7 @@ runs:
 
     - name: Complete execution plan
       uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-plugin-chain-utils:b76b5f7a853e1bca39417c87799b2fbbdd03ecb3
+      id: process-outputs
       with:
           entrypoint: assets-plugin-chain-utils
           args: process-outputs

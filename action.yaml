@@ -62,7 +62,7 @@ runs:
   using: composite
   steps:
     - name: Generate sha and ref 
-      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-plugin-chain-utils:eda1f86aa17218e8779fae9ff1ac9161b708d07e
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-plugin-chain-utils:b76b5f7a853e1bca39417c87799b2fbbdd03ecb3
       with:
         entrypoint: assets-plugin-chain-utils
         args: get-commit-info
@@ -75,7 +75,7 @@ runs:
         INPUT_WORKSPACE_DIR: ${{ inputs.workspace-dir }}
 
     - name: Generate reference files 
-      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-plugin-chain-utils:eda1f86aa17218e8779fae9ff1ac9161b708d07e
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-plugin-chain-utils:b76b5f7a853e1bca39417c87799b2fbbdd03ecb3
       with:
           entrypoint: assets-plugin-chain-utils
           args: generate-references --asset-type "CODE"
@@ -110,8 +110,7 @@ runs:
       run: /app/plugin-sonarqube-scanner -mode single
 
     - name: Complete execution plan
-      uses: docker://020229604682.dkr.ecr.us-east-1.amazonaws.com/actions/assets-plugin-chain-utils:ff4d75579893f27f866232d22ed75aa699c0a7aa
-      id: process-outputs
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-plugin-chain-utils:b76b5f7a853e1bca39417c87799b2fbbdd03ecb3
       with:
           entrypoint: assets-plugin-chain-utils
           args: process-outputs

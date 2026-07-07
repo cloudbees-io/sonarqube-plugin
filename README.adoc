@@ -87,7 +87,7 @@ For more information, refer to the link:https://cmake.org/cmake/help/book/master
 | The number of *Low* security findings discovered during the scan.
 
 | `policy-subject`
-| String
+| JSON
 | A JSON value containing the details about the vulnerability scan summary and details.
 
 |===

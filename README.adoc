@@ -43,6 +43,11 @@ For more information, refer to the link:https://cmake.org/cmake/help/book/master
 | No
 | The SonarQube access token.
 
+| `use-properties-project-key`
+| String
+| No
+| When `true`, the scan reports to the SonarQube project set by `sonar.projectKey` in `sonar-project.properties` at the root of `workspace-dir`. Default is `false`.
+
 | `username`
 | String
 | No
@@ -54,6 +59,12 @@ For more information, refer to the link:https://cmake.org/cmake/help/book/master
 | The file path of the code to be scanned.
 
 |===
+
+== SonarQube project key
+
+By default, the scan reports to the project `<organization>:<repository>`, taken from the repository URL.
+
+With `use-properties-project-key: true`, the scan reports to the project set by `sonar.projectKey` in a `sonar-project.properties` file at the root of `workspace-dir`. Without that file or key, it uses `<organization>:<repository>`. Use one `sonar-project.properties` per component to scan each component of a monorepo into its own SonarQube project. The key may only contain letters, digits, `-`, `_`, `.` and `:`, and can't be all digits. Any other value is ignored, and the scan uses `<organization>:<repository>`.
 
 
 == Outputs

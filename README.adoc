@@ -55,6 +55,12 @@ For more information, refer to the link:https://cmake.org/cmake/help/book/master
 
 |===
 
+== SonarQube project key
+
+The scan reports to the project set by `sonar.projectKey` in a `sonar-project.properties` file at the root of `workspace-dir`. Without one, the key is `<organization>:<repository>`, taken from the repository URL.
+
+Use one `sonar-project.properties` per component to scan each component of a monorepo into its own SonarQube project. The key may only contain letters, digits, `-`, `_`, `.` and `:`, and can't be all digits. Any other value is ignored, and the scan uses `<organization>:<repository>`.
+
 
 == Outputs
 

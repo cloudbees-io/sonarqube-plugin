@@ -107,7 +107,7 @@ runs:
 
    
     - name: Run sonarqube compliance plugin
-      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-sonarqube-scanner:315cc67ba551149baae34ccc6951cc5173f7a3c1
+      uses: docker://public.ecr.aws/l7o7z1g8/actions/assets-sonarqube-scanner:87ca532f4d01735451bfe196c1555e5ebc7d39e8
       continue-on-error: true
       env:
           SONARQUBE_PROPS: '{"url": "${{ inputs.url }}" , "username": "${{ inputs.username }}", "password": "${{ inputs.password }}", "token": "${{ inputs.token }}"}'
@@ -118,6 +118,7 @@ runs:
           SONARQUBE_SCAN_FILE_INCLUSIONS: ${{ inputs.sonar-inclusion }}
           SONARQUBE_SCAN_FILE_EXCLUSIONS: ${{ inputs.sonar-exclusion }}
           SONARQUBE_TEST_COVERAGE_FILE: ${{ inputs.cover-file-name }}
+          SONARQUBE_USE_PROPERTIES_PROJECT_KEY: "true"
           
       run: /app/plugin-sonarqube-scanner -mode single
 

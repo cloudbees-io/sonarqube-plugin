@@ -38,6 +38,10 @@ inputs:
     description: 'Coverage report file name'
     required: false
     default: 'coverage.out'
+  use-properties-project-key:
+    description: 'Use sonar.projectKey from sonar-project.properties at the root of workspace-dir as the SonarQube project key'
+    required: false
+    default: 'false'
 outputs:
   critical-count:
     description: A string containing the number of Critical security findings discovered during the scan.
@@ -118,7 +122,7 @@ runs:
           SONARQUBE_SCAN_FILE_INCLUSIONS: ${{ inputs.sonar-inclusion }}
           SONARQUBE_SCAN_FILE_EXCLUSIONS: ${{ inputs.sonar-exclusion }}
           SONARQUBE_TEST_COVERAGE_FILE: ${{ inputs.cover-file-name }}
-          SONARQUBE_USE_PROPERTIES_PROJECT_KEY: "true"
+          SONARQUBE_USE_PROPERTIES_PROJECT_KEY: ${{ inputs.use-properties-project-key }}
           
       run: /app/plugin-sonarqube-scanner -mode single
 

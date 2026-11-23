@@ -25,8 +25,13 @@ NOTE: If you do not have SonarQube already installed, use the https://github.com
 | `cmakeList-path`
 | String
 | No
-| The `CMakeFileList.txt` file path for scanning C-family code languages.
+| The `CMakeLists.txt` file path for scanning C-family code languages.
 For more information, refer to the link:https://cmake.org/cmake/help/book/mastering-cmake/chapter/Getting%20Started.html[CMake documentation].
+
+| `cover-file-name`
+| String
+| No
+| The Go test coverage report file, passed to SonarQube as `sonar.go.coverage.reportPaths`. Used for Go scans only. Default is `coverage.out`.
 
 | `password`
 | String
@@ -36,7 +41,17 @@ For more information, refer to the link:https://cmake.org/cmake/help/book/master
 | `ref`
 | String
 | No
-| The branch name to be scanned.
+| The ref to scan, the same value given to the checkout action.
+
+| `sonar-exclusion`
+| String
+| No
+| File patterns to exclude from the scan, passed to SonarQube as `sonar.exclusions`.
+
+| `sonar-inclusion`
+| String
+| No
+| File patterns to include in the scan, passed to SonarQube as `sonar.inclusions`.
 
 | `token`
 | String
@@ -115,7 +130,8 @@ The following is a basic example for using the action:
       - name: Scan with SonarQube
         uses: cloudbees-io/sonarqube-plugin@v1
         with:
-          server-url: https://my-sonarqube-server-url
+          url: https://my-sonarqube-server-url
+          token: ${{ secrets.SONARQUBE_TOKEN }}
 
 ----
 
@@ -129,8 +145,9 @@ In the following example, the `cmakeList-path` input is specified for a C-family
       - name: Scan C-family code with SonarQube
         uses: cloudbees-io/sonarqube-plugin@v1
         with:
-          server-url: ${{ vars.SONARQUBE_SERVER_URL }}
-          cmakeList-path: https://path/to/my/CMakeFileList.txt
+          url: ${{ vars.SONARQUBE_SERVER_URL }}
+          token: ${{ secrets.SONARQUBE_TOKEN }}
+          cmakeList-path: path/to/CMakeLists.txt
 ----
 
 === Using the action output
@@ -173,7 +190,8 @@ jobs:
         name: sonarqube scan
         uses: cloudbees-io/sonarqube-plugin@v1
         with:
-          server-url: https://my-sonarqube-server-url
+          url: https://my-sonarqube-server-url
+          token: ${{ secrets.SONARQUBE_TOKEN }}
 
       - name: source dir examine
         uses: docker://golang:1.20.3-alpine3.17
@@ -236,7 +254,8 @@ jobs:
         name: sonarqube scan
         uses: cloudbees-io/sonarqube-plugin@v1
         with:
-          server-url: https://my-sonarqube-server-url
+          url: https://my-sonarqube-server-url
+          token: ${{ secrets.SONARQUBE_TOKEN }}
 
   job2:
     needs: job1
